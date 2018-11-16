@@ -1,0 +1,8 @@
+#GENERAL
+node_modules
+package-lock.json
+
+
+
+#PERSONAL
+.vscode
