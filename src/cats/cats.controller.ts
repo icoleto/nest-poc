@@ -1,16 +1,19 @@
-import { Logger, Controller, Get, Post, Param, Body } from '@nestjs/common';
-import { get } from 'https';
-import { create } from 'domain';
+import { Logger, Controller, Get, Post, Param, Body, HttpStatus, HttpCode } from '@nestjs/common';
 import { CatDto } from './cat';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
-
+    constructor(private readonly catsService: CatsService) { }
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     create(@Body() catDto: CatDto) {
         Logger.log(catDto);
+        this.catsService.isValid(catDto);
+
         return catDto;
     }
+
     @Get(':id')
     findOne(@Param() params) {
         Logger.log(params.id);
