@@ -7,10 +7,8 @@ export class ErrorFilter implements ExceptionFilter {
 
         const response = host.switchToHttp().getResponse();
         const status = (error instanceof HttpException) ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-
-        Logger.error(error.stack);
         const errorMsg = new ErrorMsg(new Date(), error.message);
-        Logger.log(errorMsg);
+        Logger.error(errorMsg);
 
         response.status(status).send(errorMsg);
 
